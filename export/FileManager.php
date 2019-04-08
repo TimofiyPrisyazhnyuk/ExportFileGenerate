@@ -4,11 +4,12 @@ namespace app\export;
 
 use app\helpers\ArchiveHelper;
 use app\helpers\FileHelper;
+use app\export\FileProvider;
 use app\export\CommonConstants;
 use Yii;
 
 /**
- * Class ProdIdDManager
+ * Class FileManager
  *
  * @author Prisyazhnyuk Timofiy
  * @package app\exports\export
@@ -18,7 +19,7 @@ class FileManager
     const CSV_FIELD_DELIMITER = "\t\t\t";
     const ROW_SEPARATOR = "\n";
     const PRODUCT_ID_FROM = 0;
-    const FILE_NAME = 'prodId_export_';
+    const FILE_NAME = 'export_file_';
 
     /**
      * @var null|string
@@ -66,7 +67,7 @@ class FileManager
     }
 
     /**
-     * Generate new file - prodid_d.txt.
+     * Generate new file.
      *
      * @throws \ErrorException
      * @throws \app\components\cassandra\Exception
@@ -102,7 +103,7 @@ class FileManager
         $this->fullFilePath = $fullFileName;
 
         if (!is_resource($file)) {
-            throw new \ErrorException('Failed to create ProductId export files in directory ' . $baseDirectoryPath);
+            throw new \ErrorException('Failed to create export files in directory ' . $baseDirectoryPath);
         }
 
         return $file;
@@ -131,7 +132,7 @@ class FileManager
      */
     public function writeDataToFile($file)
     {
-        $provider = $this->getProductIdsProvider();
+        $provider = $this->getFileProvider();
         $productInfoPool = $this->getProductInfoPool(self::PRODUCT_ID_FROM);
 
         while (($row = $productInfoPool->getNextRow()) !== null) {
@@ -204,11 +205,11 @@ class FileManager
     /**
      * Gets new instance of ProductIdFilesManager class.
      *
-     * @return ProdIdDProvider
+     * @return FileProvider
      */
-    protected function getProductIdsProvider()
+    protected function getFileProvider()
     {
-        return new ProdIdDProvider();
+        return new FileProvider();
     }
 
     /**

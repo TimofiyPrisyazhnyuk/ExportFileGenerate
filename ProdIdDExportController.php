@@ -7,7 +7,7 @@ use app\export\FileManager;
 use Yii;
 
 /**
- * Class ProdIdDExportController
+ * Class ExportController
  *
  * @author Prisyazhnyuk Timofiy
  * @package app\commands
@@ -17,13 +17,13 @@ class ExportController extends Controller
     const LOG_TAG = 'ExportFile';
 
     /**
-     * Create index file prodid_d.txt.
+     * Create export file..
      *
      * @param bool $testMode
      *
      * @return int
      */
-    public function actionCreateProdIdExportFile($testMode = false)
+    public function actionCreateExportFile($testMode = false)
     {
         try {
             $manager = new FileManager();

@@ -7,7 +7,7 @@ use app\models\Language;
 use yii\helpers\Json;
 
 /**
- * Class ProdIdDProvider
+ * Class FileProvider
  *
  * @author Prisyazhnyuk Timofiy
  * @package app\exports\export
